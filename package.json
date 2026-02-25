@@ -1,0 +1,48 @@
+{
+  "name": "react-use-stable-state",
+  "version": "1.0.0",
+  "description": "A hook that only updates state if the value has actually changed, with optional deep compare support.",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "keywords": [
+    "react",
+    "hooks",
+    "useState",
+    "stable",
+    "compare",
+    "shallowEqual",
+    "deepEqual",
+    "re-render",
+    "optimization"
+  ],
+  "author": "",
+  "license": "MIT",
+  "type": "commonjs",
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^16.2.0",
+    "@types/react": "^19.0.10",
+    "jsdom": "^26.0.0",
+    "tsup": "^8.4.0",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.6"
+  }
+}
