@@ -1,0 +1,2 @@
+import{useRef as u,useState as p,useCallback as i}from"react";function c(e,t){if(Object.is(e,t))return!0;if(typeof e!="object"||typeof t!="object"||!e||!t)return!1;let o=Object.keys(e),r=Object.keys(t);if(o.length!==r.length)return!1;for(let a of o)if(!Object.is(e[a],t[a]))return!1;return!0}function T(e,t){let o=t?.compare??c,[r,a]=p(e),n=u(r),f=i(s=>{let l=typeof s=="function"?s(n.current):s;o(n.current,l)||(n.current=l,a(l))},[o]);return[r,f]}export{c as shallowEqual,T as useStableState};
+//# sourceMappingURL=index.mjs.map

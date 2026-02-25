@@ -21,7 +21,7 @@ Or when you receive data from an API where the content is unchanged but the obje
 
 | Feature | `useState` | `useStableState` |
 |---------|-----------|------------------|
-| **Comparison Method** | Fixed to `Object.is` (Reference equality) | **Pluggable** (Reference, Shallow, or Deep) |
+| **Comparison Method** | Fixed to `Object.is` (Reference equality) | **Pluggable** (Default: `shallowEqual`, supports Deep/Reference) |
 | **Object Updates** | Re-renders if reference changes (even if identical) | **Prevents re-render** if content is equal |
 | **API Responses** | Triggers re-render on identical polled data | **Safely ignores** unchanged data |
 | **Learning Curve** | Standard React | **Zero** (Same API as `useState`) |
@@ -37,36 +37,17 @@ yarn add react-use-stable-state
 pnpm add react-use-stable-state
 ```
 
-*(Note: update the package name to match what you actually publish on NPM).*
-
 ## Usage
 
-### Basic Usage (Default: `Object.is`)
+### Basic Usage (Default: `shallowEqual`)
 
-By default, it works exactly like `useState`, comparing by reference:
+By default, `useStableState` uses a built-in `shallowEqual` comparison. This means if you pass an object with the exact same top-level properties, it will **not** trigger a re-render:
 
 ```tsx
 import { useStableState } from 'react-use-stable-state';
 
-function App() {
-  const [count, setCount] = useStableState(0);
-
-  // Normal updates work as expected
-  setCount(1);
-}
-```
-
-### With Shallow Comparison (Built-in)
-
-We export a tiny, built-in `shallowEqual` utility that you can pass to the `compare` option:
-
-```tsx
-import { useStableState, shallowEqual } from 'react-use-stable-state';
-
 function Filters() {
-  const [filters, setFilters] = useStableState({ page: 1, sort: 'asc' }, {
-    compare: shallowEqual
-  });
+  const [filters, setFilters] = useStableState({ page: 1, sort: 'asc' });
 
   const handleUpdate = () => {
     // This will NOT trigger a re-render because it is shallowly equal!
@@ -74,6 +55,18 @@ function Filters() {
   };
 
   return <button onClick={handleUpdate}>Update Filters</button>;
+}
+```
+
+### With Reference Equality (Like standard `useState`)
+
+If you want the exact same behavior as `useState` (comparing by reference), you can pass `Object.is` as the compare function:
+
+```tsx
+import { useStableState } from 'react-use-stable-state';
+
+function App() {
+  const [count, setCount] = useStableState(0, { compare: Object.is });
 }
 ```
 

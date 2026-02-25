@@ -36,7 +36,7 @@ describe('useStableState', () => {
     expect(renderCount).toBe(2);
   });
 
-  it('does not update if object reference is the same (default Object.is)', () => {
+  it('does not update if object reference is the same (default shallowEqual)', () => {
     let renderCount = 0;
     const initialObj = { a: 1 };
     const { result } = renderHook(() => {
@@ -52,7 +52,7 @@ describe('useStableState', () => {
     expect(renderCount).toBe(1);
   });
 
-  it('updates if object reference changes (default Object.is)', () => {
+  it('does not update if object reference changes but content is shallow equal (default shallowEqual)', () => {
     let renderCount = 0;
     const { result } = renderHook(() => {
       renderCount++;
@@ -64,31 +64,15 @@ describe('useStableState', () => {
       setState({ a: 1 });
     });
 
-    // Object.is({ a: 1 }, { a: 1 }) is false, so it triggers an update.
-    expect(renderCount).toBe(2);
-  });
-
-  it('does not update if object is shallow equal and custom compare is provided', () => {
-    let renderCount = 0;
-    const { result } = renderHook(() => {
-      renderCount++;
-      return useStableState({ a: 1 }, { compare: shallowEqual });
-    });
-    const [, setState] = result.current;
-
-    act(() => {
-      setState({ a: 1 });
-    });
-
     // shallowEqual({ a: 1 }, { a: 1 }) is true, so it should NOT trigger an update.
     expect(renderCount).toBe(1);
   });
 
-  it('updates if object is not shallow equal and custom compare is provided', () => {
+  it('updates if object is not shallow equal (default shallowEqual)', () => {
     let renderCount = 0;
     const { result } = renderHook(() => {
       renderCount++;
-      return useStableState({ a: 1 }, { compare: shallowEqual });
+      return useStableState({ a: 1 });
     });
     const [, setState] = result.current;
 
@@ -97,6 +81,22 @@ describe('useStableState', () => {
     });
 
     expect(result.current[0]).toEqual({ a: 2 });
+    expect(renderCount).toBe(2);
+  });
+
+  it('updates if custom compare is provided (e.g. Object.is)', () => {
+    let renderCount = 0;
+    const { result } = renderHook(() => {
+      renderCount++;
+      return useStableState({ a: 1 }, { compare: Object.is });
+    });
+    const [, setState] = result.current;
+
+    act(() => {
+      setState({ a: 1 });
+    });
+
+    // Object.is({ a: 1 }, { a: 1 }) is false, so it triggers an update.
     expect(renderCount).toBe(2);
   });
 

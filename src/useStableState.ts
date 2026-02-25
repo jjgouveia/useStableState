@@ -1,4 +1,5 @@
 import { useRef, useState, useCallback } from "react";
+import { shallowEqual } from "./shallowEqual";
 
 type CompareFn<T> = (a: T, b: T) => boolean;
 
@@ -10,7 +11,7 @@ export function useStableState<T>(
   initial: T | (() => T),
   options?: StableOptions<T>
 ) {
-  const compare = options?.compare ?? Object.is;
+  const compare = options?.compare ?? shallowEqual;
 
   const [state, internalSetState] = useState<T>(initial);
   const stateRef = useRef(state);
