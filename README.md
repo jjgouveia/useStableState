@@ -17,10 +17,15 @@ Or when you receive data from an API where the content is unchanged but the obje
 
 `useStableState` provides a minimal, predictable wrapper around `useState` that allows you to specify exactly how the old and new state should be compared.
 
-- ✅ **No unnecessary re-renders**
-- ✅ **Tiny footprint (<1kb)**
-- ✅ **No heavy dependencies**
-- ✅ **Agnostic comparison (use your own deep/shallow equal)**
+### 🆚 `useState` vs `useStableState`
+
+| Feature | `useState` | `useStableState` |
+|---------|-----------|------------------|
+| **Comparison Method** | Fixed to `Object.is` (Reference equality) | **Pluggable** (Reference, Shallow, or Deep) |
+| **Object Updates** | Re-renders if reference changes (even if identical) | **Prevents re-render** if content is equal |
+| **API Responses** | Triggers re-render on identical polled data | **Safely ignores** unchanged data |
+| **Learning Curve** | Standard React | **Zero** (Same API as `useState`) |
+| **Bundle Size** | Built-in | **< 1kb** (Zero dependencies) |
 
 ## Installation
 
