@@ -1,4 +1,8 @@
-# useStableState
+# use-stable-state
+
+[![NPM Downloads](https://img.shields.io/npm/dt/use-stable-state.svg)](https://www.npmjs.com/package/use-stable-state)
+[![NPM Version](https://img.shields.io/npm/v/use-stable-state.svg)](https://www.npmjs.com/package/use-stable-state)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A React hook that only updates state if the value has actually changed, with optional custom comparison support (like deep or shallow equality).
 
