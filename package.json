@@ -1,5 +1,5 @@
 {
-  "name": "react-use-stable-state",
+  "name": "@lazylab/react-use-stable-state",
   "version": "1.0.0",
   "description": "A hook that only updates state if the value has actually changed, with optional deep compare support.",
   "main": "./dist/index.js",

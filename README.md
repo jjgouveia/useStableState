@@ -1,7 +1,7 @@
-# use-stable-state
+# @lazylab/react-use-stable-state
 
-[![NPM Downloads](https://img.shields.io/npm/dt/use-stable-state.svg)](https://www.npmjs.com/package/use-stable-state)
-[![NPM Version](https://img.shields.io/npm/v/use-stable-state.svg)](https://www.npmjs.com/package/use-stable-state)
+[![NPM Downloads](https://img.shields.io/npm/dt/@lazylab/react-use-stable-state.svg)](https://www.npmjs.com/package/@lazylab/react-use-stable-state)
+[![NPM Version](https://img.shields.io/npm/v/@lazylab/react-use-stable-state.svg)](https://www.npmjs.com/package/@lazylab/react-use-stable-state)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A React hook that only updates state if the value has actually changed, with optional custom comparison support (like deep or shallow equality).
@@ -34,11 +34,11 @@ Or when you receive data from an API where the content is unchanged but the obje
 ## Installation
 
 ```bash
-npm install react-use-stable-state
+npm install @lazylab/react-use-stable-state
 # or
-yarn add react-use-stable-state
+yarn add @lazylab/react-use-stable-state
 # or
-pnpm add react-use-stable-state
+pnpm add @lazylab/react-use-stable-state
 ```
 
 ## Usage
@@ -48,7 +48,7 @@ pnpm add react-use-stable-state
 By default, `useStableState` uses a built-in `shallowEqual` comparison. This means if you pass an object with the exact same top-level properties, it will **not** trigger a re-render:
 
 ```tsx
-import { useStableState } from 'react-use-stable-state';
+import { useStableState } from '@lazylab/react-use-stable-state';
 
 function Filters() {
   const [filters, setFilters] = useStableState({ page: 1, sort: 'asc' });
@@ -67,7 +67,7 @@ function Filters() {
 If you want the exact same behavior as `useState` (comparing by reference), you can pass `Object.is` as the compare function:
 
 ```tsx
-import { useStableState } from 'react-use-stable-state';
+import { useStableState } from '@lazylab/react-use-stable-state';
 
 function App() {
   const [count, setCount] = useStableState(0, { compare: Object.is });
@@ -79,7 +79,7 @@ function App() {
 If you have deeply nested objects (like complex API responses), you can inject any comparison library you want:
 
 ```tsx
-import { useStableState } from 'react-use-stable-state';
+import { useStableState } from '@lazylab/react-use-stable-state';
 import deepEqual from 'fast-deep-equal';
 
 function DataView({ initialData }) {
